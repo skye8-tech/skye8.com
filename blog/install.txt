@@ -1,0 +1,24 @@
+﻿Dear friends!!!
+
+I thank you for deciding to use my script for your site.
+
+1. Installing the script on the server
+
+Installing the script on the server is automatic and should not cause any problems, but you need to perform some steps to configure access rights to folders.
+
+First, copy all the files from this archive to your server.
+Set the permissions for the folders data, files, cache and all the folders enclosed in them (CHMOD 777)
+Set write permissions for all files in the templates folder (CHMOD 666)
+Run the installation at / install and follow its instructions.
+The automatic installer will check all the necessary files and configure the connection to the database.
+After installation is complete, the admin panel will be available at / admin
+Attention: After installing or updating the script on the server, be sure to delete the / install folder
+
+We hope that working with my script will give you only pleasure.
+
+
+
+All the Best,
+
+CampCodes Team
+(www.campcodes.com)

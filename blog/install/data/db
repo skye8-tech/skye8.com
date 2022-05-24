@@ -1,0 +1,251 @@
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `icon` varchar(30) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slider` text NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `parent` int(11) NOT NULL,
+  `header` varchar(255) NOT NULL,
+  `images` text NOT NULL,
+  `content` text NOT NULL,
+  `position` int(11) NOT NULL,
+  `elements` text NOT NULL,
+  `keywords` text NOT NULL,
+  `description` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+###
+CREATE TABLE `chat` (
+  `id` int(11) NOT NULL,
+  `time` timestamp NOT NULL,
+  `user` smallint(6) NOT NULL,
+  `message` text NOT NULL,
+  `position` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+###
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL,
+  `ip` varchar(40) NOT NULL,
+  `user` smallint(6) NOT NULL,
+  `time` timestamp NOT NULL,
+  `reply` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `content` int(11) NOT NULL,
+  `position` int(11) NOT NULL,
+  `comment` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+###
+CREATE TABLE `content` (
+  `id` int(11) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `user` smallint(6) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `tags` varchar(255) NOT NULL,
+  `time` timestamp NOT NULL,
+  `form` text NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `rating` smallint(6) NOT NULL,
+  `views` smallint(11) NOT NULL,
+  `video` text NOT NULL,
+  `slider` text NOT NULL,
+  `header` varchar(255) NOT NULL,
+  `images` text NOT NULL,
+  `position` int(11) NOT NULL,
+  `fullentry` text NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `elements` text NOT NULL,
+  `keywords` text NOT NULL,
+  `shortentry` text NOT NULL,
+  `description` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+###
+CREATE TABLE `formdata` (
+  `id` int(11) NOT NULL,
+  `json` text NOT NULL,
+  `time` timestamp NOT NULL,
+  `page` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `position` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+###
+CREATE TABLE `logs` (
+  `id` int(11) NOT NULL,
+  `time` timestamp NOT NULL,
+  `user` smallint(6) NOT NULL,
+  `event` text NOT NULL,
+  `position` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+###
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL,
+  `time` timestamp NOT NULL,
+  `user` smallint(6) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `position` int(11) NOT NULL,
+  `recipient` smallint(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+###
+CREATE TABLE `pages` (
+  `id` int(11) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `icon` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `type` tinyint(4) NOT NULL,
+  `form` text NOT NULL,
+  `blog` mediumtext NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `class` varchar(255) NOT NULL,
+  `video` text NOT NULL,
+  `slider` text NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `parent` int(11) NOT NULL,
+  `header` varchar(255) NOT NULL,
+  `images` text NOT NULL,
+  `position` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `elements` text NOT NULL,
+  `keywords` text NOT NULL,
+  `description` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+###
+CREATE TABLE `statistics` (
+  `id` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `period` varchar(255) NOT NULL,
+  `uniques` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+###
+CREATE TABLE `subscriptions` (
+  `id` int(11) NOT NULL,
+  `time` timestamp NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `position` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+###
+CREATE TABLE `tags` (
+  `id` int(11) NOT NULL,
+  `time` timestamp NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `position` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+###
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `tin` varchar(255) NOT NULL,
+  `lost` varchar(255) NOT NULL,
+  `role` smallint(6) NOT NULL,
+  `hash` varchar(32) NOT NULL,
+  `time` timestamp NOT NULL,
+  `login` varchar(32) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `organization` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+###
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `category-id-uindex` (`id`),
+  ADD KEY `category-parent-index` (`parent`),
+  ADD KEY `category-status-index` (`status`);
+###
+ALTER TABLE `chat`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `chat-id-uindex` (`id`);
+###
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `comments-id-uindex` (`id`),
+  ADD KEY `comments-content-index` (`content`);
+###
+ALTER TABLE `content`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `content-id-uindex` (`id`),
+  ADD KEY `content-category-index` (`category`),
+  ADD KEY `content-user-index` (`user`);
+###
+ALTER TABLE `formdata`
+  ADD PRIMARY KEY (`id`);
+###
+ALTER TABLE `logs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `logs-id-uindex` (`id`),
+  ADD KEY `logs-user-index` (`user`);
+###
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `messages-id-uindex` (`id`);
+###
+ALTER TABLE `pages`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `pages-id-uindex` (`id`),
+  ADD KEY `pages-parent-index` (`parent`);
+###
+ALTER TABLE `statistics`
+  ADD PRIMARY KEY (`id`);
+###
+ALTER TABLE `subscriptions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `subscriptions-id-uindex` (`id`);
+###
+ALTER TABLE `tags`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `tags-id-uindex` (`id`);
+###
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users-id-uindex` (`id`);
+###
+ALTER TABLE `category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+###
+ALTER TABLE `chat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+###
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+###
+ALTER TABLE `content`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+###
+ALTER TABLE `formdata`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+###
+ALTER TABLE `logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+###
+ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+###
+ALTER TABLE `pages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+###
+ALTER TABLE `statistics`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+###
+ALTER TABLE `subscriptions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+###
+ALTER TABLE `tags`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+###
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+###
+INSERT INTO `pages` (`id`, `url`, `icon`, `title`, `type`, `form`, `blog`, `name`, `class`, `video`, `slider`, `status`, `parent`, `header`, `images`, `position`, `content`, `elements`, `keywords`, `description`) VALUES
+  (1, '', 'fa-warning', 'Page not found!', 0, '{&quot;fields&quot;:[],&quot;params&quot;:{&quot;header-text&quot;:&quot;&quot;,&quot;message-text&quot;:&quot;&quot;,&quot;button-text&quot;:&quot;&quot;}}', '', 'Page 404', '', '[]', '[]', 1, 0, 'Page not found!', '[]', 0, '\r\n&lt;div style=&quot;text-align: center; &quot;&gt;\r\n    &lt;span style=&quot;font-size: 48px;&quot;&gt;\r\n        Page not found!\r\n    &lt;/span&gt;\r\n&lt;/div&gt;\r\n', '{&quot;elements&quot;:[&quot;slider&quot;,&quot;images&quot;,&quot;video&quot;,&quot;content&quot;,&quot;form&quot;],&quot;property&quot;:{&quot;slider-enable&quot;:1,&quot;images-enable&quot;:1,&quot;video-enable&quot;:1,&quot;content-enable&quot;:1,&quot;form-enable&quot;:1}}', '', ''),
+  (2, 'tags', 'fa-tag', 'Posts tagged', 1, '', '', 'Posts by tag', '', '', '', 1, 0, 'Posts tagged', '', 1, '', '{&quot;elements&quot;:[&quot;entries&quot;],&quot;property&quot;:{&quot;entries-enable&quot;:1,&quot;tag-name-enable&quot;:1}}', '', ''),
+  (3, '', 'fa-home', '', 2, '{&quot;fields&quot;:[],&quot;params&quot;:{}}', '', 'Home', '', '[]', '[]', 1, 0, 'HammerBlog CMS introductory Site', '[]', 2, '&lt;p style=&quot;text-align: center;&quot;&gt;This demo content site is designed to get you started HammerBlog CMS.&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b&gt;&lt;font color=&quot;#ff9c00&quot;&gt;All changes made by you will not be saved.&lt;/font&gt;&lt;/b&gt;&lt;/p&gt;', '{&quot;elements&quot;:[&quot;slider&quot;,&quot;images&quot;,&quot;video&quot;,&quot;content&quot;,&quot;entries&quot;],&quot;property&quot;:{&quot;slider-enable&quot;:1,&quot;images-enable&quot;:1,&quot;video-enable&quot;:1,&quot;content-enable&quot;:1,&quot;entries-enable&quot;:1}}', '', ''),
+  (4, 'categories', 'fa-folder-open', '', 3, '', '', 'Categories', '', '', '', 1, 0, '', '', 3, '', '', '', ''),
+  (5, 'send-story', 'fa-plus', 'Send story', 5, '', '', 'Send story', '', '', '', 1, 0, 'Send story', '', 4, '&lt;p&gt;We reserve the right to process and edit your stories with the maximum possible preservation of the plot. Surnames, addresses, company names are likely to disappear from the text.&lt;/p&gt;', '{&quot;elements&quot;:[&quot;content&quot;,&quot;form&quot;],&quot;property&quot;:{&quot;content-enable&quot;:1}}', '', 'Here you can send your story and add it to the site'),
+  (6, 'bookmarks', 'fa-bookmark', 'Bookmarks', 4, '', '', 'Bookmarks', 'bookmark-link', '', '', 1, 0, 'Bookmarks', '', 5, 'On this page you can find all the entries that you have added to your bookmarks!', '{&quot;elements&quot;:[&quot;content&quot;,&quot;entries&quot;],&quot;property&quot;:{&quot;content-enable&quot;:1,&quot;entries-enable&quot;:1}}', '', 'On this page you can find all the entries that you have added to your bookmarks!'),
+  (7, 'contact', 'fa-envelope-o', 'Feedback', 6, '{&quot;fields&quot;:[{&quot;label&quot;:&quot;Your name&quot;,&quot;required&quot;:1,&quot;type&quot;:&quot;text&quot;},{&quot;label&quot;:&quot;Your e-mail&quot;,&quot;required&quot;:1,&quot;type&quot;:&quot;text&quot;},{&quot;label&quot;:&quot;Subject&quot;,&quot;required&quot;:1,&quot;type&quot;:&quot;text&quot;},{&quot;label&quot;:&quot;Message&quot;,&quot;required&quot;:1,&quot;type&quot;:&quot;textarea&quot;}],&quot;params&quot;:{&quot;header-text&quot;:&quot;Feedback&quot;,&quot;message-text&quot;:&quot;Fill out the form below to get an answer to your question.&quot;,&quot;button-text&quot;:&quot;Submit&quot;}}', '', 'Contact', '', '[]', '[]', 1, 0, 'Feedback', '[]', 7, '\r\n&lt;p&gt;\r\n    To contact us, we recommend using the feedback form, thereby guaranteeing that your letter will be delivered to us regardless of your mail provider. Please do not duplicate your questions, and wait for an answer to your questions.\r\n&lt;/p&gt;\r\n', '{&quot;elements&quot;:[&quot;slider&quot;,&quot;images&quot;,&quot;video&quot;,&quot;content&quot;,&quot;form&quot;],&quot;property&quot;:{&quot;slider-enable&quot;:1,&quot;images-enable&quot;:1,&quot;video-enable&quot;:1,&quot;content-enable&quot;:1,&quot;form-enable&quot;:1}}', '', 'To contact us, we recommend using the feedback form.');
